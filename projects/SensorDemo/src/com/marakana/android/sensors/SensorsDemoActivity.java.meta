@@ -1,0 +1,9 @@
+<1>
+The main entry point into our activity.
+
+<2>
+This is where we inflate the UI. This code is pretty standard.
+
+<3>
+This is also a standard way of obtaining the system service.
+

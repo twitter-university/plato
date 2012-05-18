@@ -1,0 +1,21 @@
+
+HelloWorld.java file:
+
+public class HelloWorld {
+
+  // This is the main entry point <1>
+  public static final void main(String[] args) {
+    System.out.println("Hello, World!!!");  // <2>
+  }
+
+}
+
+project.meta file starts here:
+
+<HelloWorld.java:1+3> 
+----
+This is explanation of 3 lines that follow marker <1> in HelloWorld.java
+----
+
+
+<HelloWorld.java:2> This is explanation of single line at marker <2>

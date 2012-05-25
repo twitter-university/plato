@@ -1,9 +1,13 @@
-<1>
-The main entry point into our activity.
-
-<2>
-This is where we inflate the UI. This code is pretty standard.
-
-<3>
-This is also a standard way of obtaining the system service.
-
+[{
+  "marker":"<1>",
+  "title":"Called when the activity is first created.",
+  "content":"The main entry point into our activity."
+},{
+  "marker":"<2>",
+  "title":"Setup the UI",
+  "content":"This is where we inflate the UI. This code is pretty standard."
+},{
+  "marker":"<3>",
+  "title":"Setup Sensor Manager",
+  "content":"This is also a standard way of obtaining the system service."
+}]

@@ -19,18 +19,18 @@ public class SensorsDemoActivity extends Activity implements
 	private TextView out;
 	private CompassView rose;
 
-	/** Called when the activity is first created. <1>*/
+	//<1>
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Setup the UI <2+3>
+		// <2+3>
 		setContentView(R.layout.main);
 		out = (TextView) findViewById(R.id.out);
 		rose = (CompassView) findViewById(R.id.rose);
 
-		// Setup Sensor Manager <2+2>
-		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE); // <3>
+		// <3+2>
+		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 		
 		// Setup Power Manager to keep screen on

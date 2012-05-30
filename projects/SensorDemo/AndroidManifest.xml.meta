@@ -1,6 +1,7 @@
-<1>
-This is our main activity.
-
-<2>
-This is where we specify the minimum required API.
-
+[{
+"marker":"<1>"
+"content":"This is our main activity."
+},{
+"marker":"<2>"
+"content":"This is where we specify the minimum required API."
+}]

@@ -1,0 +1,183 @@
+[
+    {
+        "name": "AndroidManifest.xml",
+        "type": "file",
+        "path": "/AndroidManifest.xml",
+        "meta": true
+    },
+    {
+        "name": "cd-files.json",
+        "type": "file",
+        "path": "/cd-files.json",
+        "meta": false
+    },
+    {
+        "name": "NOTICE",
+        "type": "file",
+        "path": "/NOTICE",
+        "meta": false
+    },
+    {
+        "name": "proguard-project.txt",
+        "type": "file",
+        "path": "/proguard-project.txt",
+        "meta": false
+    },
+    {
+        "name": "project.properties",
+        "type": "file",
+        "path": "/project.properties",
+        "meta": false
+    },
+    {
+        "name": "README.asciidoc",
+        "type": "file",
+        "path": "/README.asciidoc",
+        "meta": false
+    },
+    {
+        "name": "res",
+        "type": "dir",
+        "path": "/res",
+        "items": [
+            {
+                "name": "drawable-hdpi",
+                "type": "dir",
+                "path": "/res/drawable-hdpi",
+                "items": [
+                    {
+                        "name": "ic_launcher.png",
+                        "type": "file",
+                        "path": "/res/drawable-hdpi/ic_launcher.png",
+                        "meta": false
+                    }
+                ]
+            },
+            {
+                "name": "drawable",
+                "type": "dir",
+                "path": "/res/drawable",
+                "items": [
+                    {
+                        "name": "rose.png",
+                        "type": "file",
+                        "path": "/res/drawable/rose.png",
+                        "meta": false
+                    }
+                ]
+            },
+            {
+                "name": "drawable-ldpi",
+                "type": "dir",
+                "path": "/res/drawable-ldpi",
+                "items": [
+                    {
+                        "name": "ic_launcher.png",
+                        "type": "file",
+                        "path": "/res/drawable-ldpi/ic_launcher.png",
+                        "meta": false
+                    }
+                ]
+            },
+            {
+                "name": "drawable-mdpi",
+                "type": "dir",
+                "path": "/res/drawable-mdpi",
+                "items": [
+                    {
+                        "name": "ic_launcher.png",
+                        "type": "file",
+                        "path": "/res/drawable-mdpi/ic_launcher.png",
+                        "meta": false
+                    }
+                ]
+            },
+            {
+                "name": "drawable-xhdpi",
+                "type": "dir",
+                "path": "/res/drawable-xhdpi",
+                "items": [
+                    {
+                        "name": "ic_launcher.png",
+                        "type": "file",
+                        "path": "/res/drawable-xhdpi/ic_launcher.png",
+                        "meta": false
+                    }
+                ]
+            },
+            {
+                "name": "layout",
+                "type": "dir",
+                "path": "/res/layout",
+                "items": [
+                    {
+                        "name": "main.xml",
+                        "type": "file",
+                        "path": "/res/layout/main.xml",
+                        "meta": false
+                    }
+                ]
+            },
+            {
+                "name": "values",
+                "type": "dir",
+                "path": "/res/values",
+                "items": [
+                    {
+                        "name": "strings.xml",
+                        "type": "file",
+                        "path": "/res/values/strings.xml",
+                        "meta": false
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "src",
+        "type": "dir",
+        "path": "/src",
+        "items": [
+            {
+                "name": "com",
+                "type": "dir",
+                "path": "/src/com",
+                "items": [
+                    {
+                        "name": "marakana",
+                        "type": "dir",
+                        "path": "/src/com/marakana",
+                        "items": [
+                            {
+                                "name": "android",
+                                "type": "dir",
+                                "path": "/src/com/marakana/android",
+                                "items": [
+                                    {
+                                        "name": "sensors",
+                                        "type": "dir",
+                                        "path": "/src/com/marakana/android/sensors",
+                                        "items": [
+                                            {
+                                                "name": "CompassView.java",
+                                                "type": "file",
+                                                "path": "/src/com/marakana/android/sensors/CompassView.java",
+                                                "meta": false
+                                            },
+                                            {
+                                                "name": "SensorsDemoActivity.java",
+                                                "type": "file",
+                                                "path": "/src/com/marakana/android/sensors/SensorsDemoActivity.java",
+                                                "meta": true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

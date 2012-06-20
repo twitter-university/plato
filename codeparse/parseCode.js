@@ -38,7 +38,7 @@ fs.readFile(program.file, function(err, file){
 
 function addContent(arr){
   fs.readFile(program.file + '.meta', 'utf-8', function(err, file){
-   file = JSON.parse(file); 
+   file = JSON.parse(file);
    _.each(file, function(item){
      _.each(arr, function(arrItem){
        var testMarker = '<'+arrItem.start+'>';
@@ -50,8 +50,8 @@ function addContent(arr){
            arrItem.content = item.content;
          }
        }
-     })
-   })
+     });
+   });
    console.log(arr);
-  })
+  });
 }

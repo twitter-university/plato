@@ -1,0 +1,25 @@
+.highlighted{
+	background:rgba(0,0,0,.3)!important;
+}
+  @media (max-width: 480px) {
+	  body{
+		  margin-top:0;
+	  }
+	  .span4.tag-info{
+		  display:none;
+	  }
+  }
+ 
+  @media (max-width: 767px) { 
+	  body{
+		  margin-top:0;
+	  }
+   }
+ 
+  @media (min-width: 768px) and (max-width: 979px) { 
+	  body{
+		  margin-top:0;
+	  }
+   }
+ 
+  @media (min-width: 1200px) {  }

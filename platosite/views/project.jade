@@ -1,0 +1,22 @@
+.container-fluid
+  .row-fluid
+    #{title}
+    ul.nav.nav-list.well.span4
+      -function itemslist(files, project){
+      -if(files){
+        ul.nav.nav-list
+          -files.forEach(function(file){
+            li
+              a(href='localhost:3000/project/'+project+'#{file.path}') #{file.name}
+            if file.items
+            -itemslist(file.items, project)
+          -})
+      -}
+      -}
+      -files.forEach(function(file){
+        li
+          a(href='localhost:3000/project/#{project}#{file.path}') #{file.name}
+      -if(file.items){
+        -itemslist(file.items, project)
+      -}
+      -})

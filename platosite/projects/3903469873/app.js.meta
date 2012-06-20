@@ -1,0 +1,4 @@
+[{
+  "marker":"<1>",
+  "content":"The var keyword declares a variable named express and declares 'express' to be the content of require('express')"
+}]

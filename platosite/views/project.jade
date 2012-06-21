@@ -7,7 +7,7 @@
         ul.nav.nav-list
           -files.forEach(function(file){
             li
-              a(href='localhost:3000/project/'+project+'#{file.path}') #{file.name}
+              a(href='http://coursedex.com/project/'+project+'#{file.path}') #{file.name}
             if file.items
             -itemslist(file.items, project)
           -})
@@ -15,7 +15,7 @@
       -}
       -files.forEach(function(file){
         li
-          a(href='localhost:3000/project/#{project}#{file.path}') #{file.name}
+          a(href='http://coursedex.com/project/#{project}#{file.path}') #{file.name}
       -if(file.items){
         -itemslist(file.items, project)
       -}

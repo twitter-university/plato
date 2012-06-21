@@ -77,7 +77,7 @@ function itemslist(files, project, callback){
             str += '</ul></li>';
           });
         }else{
-          str += '<li><a href="http://localhost:3000/project/'+project+file.path+'">'+file.name+'</a></li>';
+          str += '<li><a href="http://coursedex.com/project/'+project+file.path+'">'+file.name+'</a></li>';
         }
       });
       console.log(str);

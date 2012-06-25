@@ -1,25 +1,35 @@
+#meta{
+    left: 70.393162%;
+    position: fixed;
+    top: 0;
+    width:23.076923077%;
+}
+#meta.wider{
+    left:50%;
+    width:45%;
+}
 .highlighted{
 	background:rgba(0,0,0,.3)!important;
 }
-  @media (max-width: 480px) {
-	  body{
-		  margin-top:0;
-	  }
-	  .span4.tag-info{
-		  display:none;
-	  }
-  }
- 
-  @media (max-width: 767px) { 
-	  body{
-		  margin-top:0;
-	  }
-   }
- 
-  @media (min-width: 768px) and (max-width: 979px) { 
-	  body{
-		  margin-top:0;
-	  }
-   }
- 
-  @media (min-width: 1200px) {  }
+@media (max-width: 480px) {
+ body{
+    margin-top:0;
+}
+.span4.tag-info{
+    display:none;
+}
+}
+
+@media (max-width: 767px) { 
+ body{
+    margin-top:0;
+}
+}
+
+@media (min-width: 768px) and (max-width: 979px) { 
+ body{
+    margin-top:0;
+}
+}
+
+@media (min-width: 1200px) {  }

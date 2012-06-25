@@ -1,13 +1,13 @@
 // <1+4>
-var express = require('express')
-  , stylus = require('stylus')
-  , nib = require('nib')
-  , sio = require('../../lib/socket.io');
+var express = require('express');
+var stylus = require('stylus');
+var nib = require('nib');
+var sio = require('../../lib/socket.io');
 
 // <2+1>
 var app = express.createServer();
 
-// <3+11>
+// <3+12>
 app.configure(function () {
   app.use(stylus.middleware({ src: __dirname + '/public', compile: compile }));
   app.use(express.static(__dirname + '/public'));
@@ -33,9 +33,9 @@ app.listen(3000, function () {
 });
 
 // <6+2>
-var io = sio.listen(app)
-  , nicknames = {};
-// <7+22>
+var io = sio.listen(app);
+var nicknames = {};
+// <7+24>
 io.sockets.on('connection', function (socket) {
   socket.on('user message', function (msg) {
     socket.broadcast.emit('user message', socket.nickname, msg);

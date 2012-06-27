@@ -1,6 +1,6 @@
 var fbId= "448791841807277";
 var fbSecret= "a2bfeea5d12788420dc3333e51374595";
-var fbCallbackAddress= "http://coursedex.com/fblogin";
+var fbCallbackAddress= "http://coursedex.com/login";
 var cookieSecret = "scsd";
 /**
  * Module dependencies.

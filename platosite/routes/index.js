@@ -191,7 +191,7 @@ exports.projects = function(req, res){
     if(authenticated ) {
       var details = req.getAuthDetails();
       var user = {};
-      console.log(req.params);
+      console.log(req);
     }
     else {
       res.end("<html><h1>Facebook authentication failed :( </h1></html>");

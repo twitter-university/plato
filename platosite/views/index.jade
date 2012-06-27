@@ -9,8 +9,12 @@
           a(href='/tags') Tags
         li
           a(href='/projects') Projects
-        li
-          a.nav.pullRight(href='/login') Login with Facebook
+        if name
+          li
+            a.nav.pullRight(href='#') #{name}
+        else
+          li
+            a.nav.pullRight(href='/login') Login with Facebook
 .container-fliud.content
   .row-fluid
     .span12

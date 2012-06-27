@@ -10,12 +10,17 @@ var projects = db.collection("projects");
 var tags = db.collection("tags");
 
 exports.index = function(req, res){
+  var name;
   projects.find({}).limit(10).toArray(function(err, arr){
     console.log('index');
     console.log('arr', arr);
+    if(req.session.auth){
+      name = req.session.auth.name;
+    }
     res.render('index', {
       title:'Coursedex',
-      projects:arr
+      projects:arr,
+      name:name
     });
   });
 };

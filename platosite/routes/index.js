@@ -189,12 +189,19 @@ exports.projects = function(req, res){
  exports.login = function(req, res){
   req.authenticate('facebook', function(error, authenticated) {
     if(authenticated ) {
-      var details = req.getAuthDetails();
-      var user = {};
       console.log(req.session);
+      res.render('loggedIn');
     }
     else {
-      res.end("<html><h1>Facebook authentication failed :( </h1></html>");
+      res.render('notLoggedIn');
     }
   });
+};
+
+exports.isLoggedIn = function(req, res, next){
+  if(req.session.auth && req.session.access_token && req.session.auth.user.id){
+    next();
+  }else{
+    res.end('not logged in');
+  }
 };

@@ -190,10 +190,11 @@ exports.projects = function(req, res){
   req.authenticate('facebook', function(error, authenticated) {
     if(authenticated ) {
       console.log(req.session);
-      res.render('loggedIn',{title:'Coursedex'});
-    }
-    else {
-      res.render('notLoggedIn',{title:'Coursedex'});
+      res.redirect('/');
+      //res.render('loggedIn',{title:'Coursedex'});
+    } else {
+      res.end('notLoggedIn');
+      //res.render('notLoggedIn',{title:'Coursedex'});
     }
   });
 };

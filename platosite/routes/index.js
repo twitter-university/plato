@@ -2,7 +2,6 @@ var fs = require('fs');
 var async = require('async');
 var _ = require('underscore');
 var _s = require('underscore.string');
-var request = require('request');
 
 var Mongolian = require("mongolian");
 var db = new Mongolian('mongodb://coursedexapp:plato2project@ds033887.mongolab.com:33887/coursedex');
@@ -190,32 +189,12 @@ exports.projects = function(req, res){
  exports.login = function(req, res){
   req.authenticate('facebook', function(error, authenticated) {
     if(authenticated ) {
-      res.end("<html><h1>Hello Facebook user:" + JSON.stringify( req.getAuthDetails() ) + ".</h1></html>");
+      var details = req.getAuthDetails();
+      var user = {};
+      console.log(req.params);
     }
     else {
       res.end("<html><h1>Facebook authentication failed :( </h1></html>");
     }
   });
-};
-
-exports.fblogin = function(req, res, next){
-  console.log(req.params);
-  if(req.params.code){
-    request('https://graph.facebook.com/oauth/access_token?client_id=448791841807277&redirect_uri=http://coursedex.com/&client_secret=a2bfeea5d12788420dc3333e51374595&code='+req.params.code, function (error, response, body) {
-      console.log(error, response, body);
-      if (!error && response.statusCode == 200) {
-        console.log(body);
-        res.end(body);
-      }
-    });
-    /*users.findOne({fbid:req.params.code}, function(err, user){
-      if(user){
-        req.session.user = user;
-        req.session.isLoggedIn = true;
-      }else{
-        users.insert({fbid:})
-
-      }
-    });*/
-}
 };

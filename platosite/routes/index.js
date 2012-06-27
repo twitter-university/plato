@@ -15,7 +15,7 @@ exports.index = function(req, res){
     console.log('index');
     console.log('arr', arr);
     if(req.session.auth){
-      name = req.session.auth.name;
+      name = req.session.auth.user.name;
     }
     res.render('index', {
       title:'Coursedex',

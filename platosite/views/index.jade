@@ -1,5 +1,19 @@
-h1= title
-p Welcome to #{title}
-each project in projects
-  li
-    a(href='/project/#{project}') #{project}
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      a.brand Plato
+      ul.nav
+        li.active
+          a(href='/') Home
+        li
+          a(href='/tags') Tags
+        li
+          a(href='/projects') Projects
+        li
+          a.nav.pullRight(href='/login') Login with Facebook
+.container-fliud.content
+  .row-fluid
+    .span12
+      each project in projects
+        li
+          a(href='/project/#{project._id}') #{project.name}

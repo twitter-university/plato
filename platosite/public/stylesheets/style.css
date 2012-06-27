@@ -1,3 +1,6 @@
+.content{
+    margin-top: 50px;
+}
 #meta{
     left: 70.393162%;
     position: fixed;
@@ -10,6 +13,16 @@
 }
 .highlighted{
 	background:rgba(0,0,0,.3)!important;
+}
+.tag{
+    float:left;
+    height:25px;
+    margin-right:5px;
+}
+.tag-info{
+    position:fixed;
+    top:100px;
+    left:65.74585634900001%;
 }
 @media (max-width: 480px) {
  body{

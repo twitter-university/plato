@@ -1,6 +1,6 @@
 var fbId= "448791841807277";
 var fbSecret= "a2bfeea5d12788420dc3333e51374595";
-var fbCallbackAddress= "http://coursedex.com/home";
+//var fbCallbackAddress= "http://coursedex.com/fblogin";
 var cookieSecret = "scsd";
 /**
  * Module dependencies.
@@ -22,7 +22,7 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.session({secret: cookieSecret}));
   app.use(auth( [
-    auth.Facebook({appId : fbId, appSecret: fbSecret, scope: "email", callback: fbCallbackAddress})
+    auth.Facebook({appId : fbId, appSecret: fbSecret, scope: "email"})
   ]));
   app.use(express.methodOverride());
   app.use(app.router);

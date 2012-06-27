@@ -200,7 +200,7 @@ exports.projects = function(req, res){
 
 exports.fblogin = function(req, res, next){
   if(req.params.code){
-    request('http://www.google.com', function (error, response, body) {
+    request('https://graph.facebook.com/oauth/access_token?client_id=448791841807277&redirect_uri=http://coursedex.com/&client_secret=a2bfeea5d12788420dc3333e51374595&code='+req.params.code, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         console.log(body);
         res.end(body);

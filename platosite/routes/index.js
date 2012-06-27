@@ -2,6 +2,7 @@ var fs = require('fs');
 var async = require('async');
 var _ = require('underscore');
 var _s = require('underscore.string');
+var request = require('request');
 
 var Mongolian = require("mongolian");
 var db = new Mongolian('mongodb://coursedexapp:plato2project@ds033887.mongolab.com:33887/coursedex');
@@ -11,8 +12,8 @@ var tags = db.collection("tags");
 
 exports.index = function(req, res){
   projects.find({}).limit(10).toArray(function(err, arr){
-  console.log('index');
-  console.log('arr', arr);
+    console.log('index');
+    console.log('arr', arr);
     res.render('index', {
       title:'Coursedex',
       projects:arr
@@ -24,16 +25,16 @@ exports.project = function(req, res){
   console.log('hehhe');
   fs.readFile('./projects/' + req.params.pid + '/cd-files.json', 'utf-8', function(err, file){
     if(!err && file){
-    file = JSON.parse(file);
-    console.log('filed');
-    res.render('project', {
-      title: 'Coursedex',
-      files: file,
-      project: req.params.pid
-    });
-  }else{
-    res.json({err:'no such project'});
-  }
+      file = JSON.parse(file);
+      console.log('filed');
+      res.render('project', {
+        title: 'Coursedex',
+        files: file,
+        project: req.params.pid
+      });
+    }else{
+      res.json({err:'no such project'});
+    }
   });
 };
 
@@ -62,20 +63,20 @@ exports.projectfile = function(req, res){
     }
     ],function(err, results){
       if(results[2]){
-      itemslist(results[2], req.params.pid, function(obj){
-        res.render('projectfile', {
-          title:'Coursedex',
-          file: results[0],
-          meta: results[1],
-          nav: results[2],
-          project: req.params.pid,
-          filesnav: obj,
-          content: parseFile(results[0], results[1])
+        itemslist(results[2], req.params.pid, function(obj){
+          res.render('projectfile', {
+            title:'Coursedex',
+            file: results[0],
+            meta: results[1],
+            nav: results[2],
+            project: req.params.pid,
+            filesnav: obj,
+            content: parseFile(results[0], results[1])
+          });
         });
-      });
-    }else{
-      res.json({err:'no navigation for project'});
-    }
+      }else{
+        res.json({err:'no navigation for project'});
+      }
     });
 };
 
@@ -165,15 +166,15 @@ exports.script = function(req, res){
    });
 };
 
- exports.tags = function(req, res){
-   res.render('tags', { title: 'Tags' });
- };
- exports.tag = function(req, res){
-   res.render('tag/'+req.params.tag, { title: req.params.tag });
- };
- exports.projects = function(req, res){
-   res.render('projects', { title: 'Projects' });
- };
+exports.tags = function(req, res){
+ res.render('tags', { title: 'Tags' });
+};
+exports.tag = function(req, res){
+ res.render('tag/'+req.params.tag, { title: req.params.tag });
+};
+exports.projects = function(req, res){
+ res.render('projects', { title: 'Projects' });
+};
  /*exports.project = function(req, res){
    res.render('project/'+req.params.project, { title: req.params.project });
  };
@@ -187,23 +188,32 @@ exports.script = function(req, res){
  };
 
  exports.login = function(req, res){
-    req.authenticate('facebook', function(error, authenticated) {
-      if(authenticated ) {
+  req.authenticate('facebook', function(error, authenticated) {
+    if(authenticated ) {
       res.end("<html><h1>Hello Facebook user:" + JSON.stringify( req.getAuthDetails() ) + ".</h1></html>");
     }
     else {
       res.end("<html><h1>Facebook authentication failed :( </h1></html>");
     }
-    });
- };
+  });
+};
 
-exports.isLoggedIn = function(req, res, next){
+exports.fblogin = function(req, res, next){
   if(req.params.code){
-    users.findOne({fbid:req.params.code}, function(err, user){
+    request('http://www.google.com', function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(body);
+        res.end(body);
+      }
+    });
+    /*users.findOne({fbid:req.params.code}, function(err, user){
       if(user){
         req.session.user = user;
         req.session.isLoggedIn = true;
+      }else{
+        users.insert({fbid:})
+
       }
-    });
-  }
+    });*/
+}
 };

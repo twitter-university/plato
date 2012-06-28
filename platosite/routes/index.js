@@ -268,6 +268,9 @@ exports.createNewProject = function(req, res){
                     }
                   });
                 });
+              }else{
+                console.log(code);
+                res.end('Error');
               }
             });
           });

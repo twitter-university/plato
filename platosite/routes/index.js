@@ -213,5 +213,12 @@ exports.isLoggedIn = function(req, res, next){
 };
 
 exports.newProject = function(req, res){
-  res.render('newProject', {title:'Coursedex'});
+  var name;
+  if(req.session && req.session.auth && req.session.auth.user){
+    name = req.session.auth.user.name;
+  }
+  res.render('newProject', {
+    title:'Coursedex',
+    name:name
+  });
 };

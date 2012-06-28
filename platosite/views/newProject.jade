@@ -1,7 +1,26 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      a.brand Plato
+      ul.nav
+        li.active
+          a(href='/') Home
+        li
+          a(href='/tags') Tags
+        li
+          a(href='/projects') Projects
+        if name
+          li
+            a.nav.pullRight(href='#') #{name}
+          li
+            a(href='/new/project') New Project
+        else
+          li
+            a.nav.pullRight(href='/login') Login with Facebook
 .container-fluid
   .row-fluid
     .span4 &nbsp
-    form(action='/new/project').span4
+    form(action='/new/project', method='post').span4
       label Project Name
       input(type='text')
       label Description

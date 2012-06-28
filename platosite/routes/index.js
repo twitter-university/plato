@@ -211,3 +211,7 @@ exports.isLoggedIn = function(req, res, next){
     res.end('not logged in');
   }
 };
+
+exports.newProject = function(req, res){
+  res.render('newProject', {title:'Coursedex'});
+};

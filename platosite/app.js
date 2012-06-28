@@ -55,8 +55,7 @@ app.get('/projects/:project/*', routes.projectfile);
 app.get('/collections', routes.collections);
 
 app.get('/login', routes.login);
-app.get('/fblogin', routes.fblogin);
-
+app.get('/new/project', routes.newProject);
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

@@ -14,7 +14,7 @@ exports.index = function(req, res){
   projects.find({}).limit(10).toArray(function(err, arr){
     console.log('index');
     console.log('arr', arr);
-    if(req.session.auth){
+    if(req.session && req.session.auth && req.session.auth.user){
       name = req.session.auth.user.name;
     }
     res.render('index', {

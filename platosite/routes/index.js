@@ -224,5 +224,5 @@ exports.newProject = function(req, res){
 };
 
 exports.createNewProject = function(req, res){
-  console.log(req.body);
+  console.log(req.body, req.params);
 };

@@ -225,4 +225,25 @@ exports.newProject = function(req, res){
 
 exports.createNewProject = function(req, res){
   console.log(req.body, req.params);
+  if(req.body.pname && req.body.uri){
+    var project = {
+      pname: req.body.pname,
+      uri: req.body.uri
+    };
+    if(req.body.desc && req.body.desc !== ''){
+      project.desc = req.body.desc;
+    }
+    if(req.body.tags && req.body.tags !== ''){
+      project.tags = req.body.tags.split(',');
+    }
+    project.uploader = req.session.auth.user.id;
+    projects.insert(project, function(err){
+      console.log(err);
+      projects.findOne(project, function(err, proj){
+        fs.mkdir('./projects/'+proj._id, function(){
+          console.log('done');
+        });
+      });
+    });
+  }
 };

@@ -259,7 +259,7 @@ exports.createNewProject = function(req, res){
                 console.log('unzip successful');
                 fs.unlink('./projects/'+proj._id+'/git.zip', function(exception){
                   console.log('unlinked .zip');
-                  fs.readDir('./projects/'+proj._id, function(err, files){
+                  fs.readdir('./projects/'+proj._id, function(err, files){
                     console.log('find Project Folder name');
                     if(!err && files){
                       console.log('files exist');

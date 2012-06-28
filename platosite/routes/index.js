@@ -3,6 +3,10 @@ var async = require('async');
 var _ = require('underscore');
 var _s = require('underscore.string');
 
+var request = require('request');
+var spawn = require('child_process').spawn;
+
+
 var Mongolian = require("mongolian");
 var db = new Mongolian('mongodb://coursedexapp:plato2project@ds033887.mongolab.com:33887/coursedex');
 
@@ -238,10 +242,35 @@ exports.createNewProject = function(req, res){
     }
     project.uploader = req.session.auth.user.id;
     projects.insert(project, function(err){
-      console.log(err);
+      console.log('insert Project');
       projects.findOne(project, function(err, proj){
+        console.log('find Project');
         fs.mkdir('./projects/'+proj._id, function(){
-          console.log('done');
+          console.log('makedir for Project');
+          request(project.uri).pipe(fs.createWriteStream('/projects/'+proj._id+'/git.zip')).on('close', function(code){
+            console.log('retrieved Project');
+            var unzip    = spawn('unzip', ['git.zip']);
+
+            unzip.on('exit', function (code) {
+              console.log('unzipped Project');
+              if(code === 0){
+                console.log('unzip successful');
+                fs.unlink('/projects/'+proj._id+'/git.zip', function(exception){
+                  console.log('unlinked .zip');
+                  fs.readDir('/projects/'+proj._id, function(err, files){
+                    console.log('find Project Folder name');
+                    if(!err && files){
+                      console.log('files exist');
+                      console.log(files);
+                      proj.folder = files[0];
+                      projects.update({_id: proj._id}, proj, false, false);
+                      res.end('success!');
+                    }
+                  });
+                });
+              }
+            });
+          });
         });
       });
     });

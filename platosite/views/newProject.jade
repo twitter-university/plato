@@ -1,6 +1,13 @@
 .container-fluid
   .row-fluid
     .span4 &nbsp
-    form.span4
+    form(action='/new/project').span4
       label Project Name
       input(type='text')
+      label Description
+      textarea
+      label Tags (comma-seperated)
+      input(type='text')
+      label Github Zip URI
+      input(type='text')
+      input(type='submit')

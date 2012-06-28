@@ -208,7 +208,7 @@ exports.isLoggedIn = function(req, res, next){
   if(req.session.auth && req.session.access_token && req.session.auth.user.id){
     next();
   }else{
-    res.end('not logged in');
+    res.redirect('/');
   }
 };
 

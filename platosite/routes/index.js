@@ -222,3 +222,7 @@ exports.newProject = function(req, res){
     name:name
   });
 };
+
+exports.createNewProject = function(req, res){
+  console.log(req.body);
+};

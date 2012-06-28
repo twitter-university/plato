@@ -251,7 +251,7 @@ exports.createNewProject = function(req, res){
             console.log('retrieved Project');
             var unzip    = spawn('unzip', ['git.zip']);
             unzip.stderr.on('data', function(err){
-              console.log(err);
+              console.log(err.toString());
             });
             unzip.on('exit', function (code) {
               console.log('unzipped Project');

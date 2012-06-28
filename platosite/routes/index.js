@@ -250,7 +250,9 @@ exports.createNewProject = function(req, res){
           request(project.uri).pipe(fs.createWriteStream('./projects/'+proj._id+'/git.zip')).on('close', function(code){
             console.log('retrieved Project');
             var unzip    = spawn('unzip', ['git.zip']);
-
+            unzip.on('stderr', function(err){
+              console.log(err);
+            });
             unzip.on('exit', function (code) {
               console.log('unzipped Project');
               if(code === 0){

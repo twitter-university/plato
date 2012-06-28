@@ -22,11 +22,11 @@
     .span4 &nbsp
     form(action='/new/project', method='post').span4
       label Project Name
-      input(type='text')
+      input(type='text', name='pname')
       label Description
-      textarea
+      textarea(name='desc')
       label Tags (comma-seperated)
-      input(type='text')
+      input(type='text', name='tags')
       label Github Zip URI
-      input(type='text')
+      input(type='text', name='uri')
       input(type='submit', value='submit')

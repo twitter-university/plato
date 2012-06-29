@@ -31,18 +31,20 @@ exports.index = function(req, res){
 
 exports.project = function(req, res){
   console.log('hehhe');
-  fs.readFile('./projects/' + req.params.pid + '/cd-files.json', 'utf-8', function(err, file){
-    if(!err && file){
-      file = JSON.parse(file);
-      console.log('filed');
-      res.render('project', {
-        title: 'Coursedex',
-        files: file,
-        project: req.params.pid
-      });
-    }else{
-      res.json({err:'no such project'});
-    }
+  projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
+    fs.readFile('./projects/' + req.params.pid + proj.folder + '/cd-files.json', 'utf-8', function(err, file){
+      if(!err && file){
+        file = JSON.parse(file);
+        console.log('filed');
+        res.render('project', {
+          title: 'Coursedex',
+          files: file,
+          project: req.params.pid
+        });
+      }else{
+        res.json({err:'no such project OR project is missing cd-files.json'});
+      }
+    });
   });
 };
 
@@ -265,7 +267,7 @@ exports.createNewProject = function(req, res){
                       console.log('files exist');
                       console.log(files);
                       proj.folder = files[0];
-                      projects.update({_id: proj._id}, proj, false, false);
+                      projects.update({_id: proj._id}, {$set:proj}, false, false);
                       res.end('success!');
                     }
                   });
@@ -276,8 +278,8 @@ exports.createNewProject = function(req, res){
               }
             });
           });
-        });
-      });
-    });
-  }
+});
+});
+});
+}
 };

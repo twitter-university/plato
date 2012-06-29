@@ -231,7 +231,7 @@ exports.createNewProject = function(req, res){
   console.log(req.body, req.params);
   if(req.body.pname && req.body.uri){
     var project = {
-      pname: req.body.pname,
+      name: req.body.pname,
       uri: req.body.uri
     };
     if(req.body.desc && req.body.desc !== ''){

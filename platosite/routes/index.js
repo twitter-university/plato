@@ -51,14 +51,16 @@ exports.project = function(req, res){
 exports.projectfile = function(req, res){
   console.log('projectfile');
   console.log(req.params);
+
+    projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
   async.parallel([
     function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+req.params[0], function(err, file){
+      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0], function(err, file){
         callback(null,file);
       });
     },
     function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
+      fs.readFile('./projects/'+req.params.pid+'/'+'/'+ proj.folder +req.params[0]+'.meta', 'utf-8', function(err, file){
         if(!err && file){
           file = JSON.parse(file);
         }
@@ -66,7 +68,7 @@ exports.projectfile = function(req, res){
       });
     },
     function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/cd-files.json', 'utf-8', function(err, file){
+      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
         file = JSON.parse(file);
         callback(null, file);
       });
@@ -88,6 +90,7 @@ exports.projectfile = function(req, res){
         res.json({err:'no navigation for project'});
       }
     });
+});
 };
 
 function itemslist(files, project, callback){

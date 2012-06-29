@@ -1,0 +1,22 @@
+[{
+  "marker":"<1>",
+  "content":"The var keyword declares a variable named express and declares 'express' to be the content of require('express')"
+},{
+    "marker":"<2>",
+    "content":"Here we run the createServer() method on the express object which, as detailed on line 2, is the result of executing the require() method on the express library. <br><br> This gives us an object, which is now referenced by `app`, that can be used to configure and start our webserver."
+},{
+    "marker":"<3>",
+    "content":"Here we call the configure() method on the app object. The configure() method takes a function as an argument that will be executed when we start our server. <br><br> Inside of the anonymous function we pass to configure() there are a set of functions that each request to our webserver will filter through."
+},{
+    "marker":"<4>",
+    "content":"app.get() takes two parameters, the first is the route to be consumed. The second is the function to execute when the route is accessed."
+},{
+    "marker":"<5>",
+    "content":"Start the server by listening on port 3000."
+},{
+    "marker":"<6>",
+    "content":"Tell socket.io to listen on the express server and create a nickname variable."
+},{
+    "marker":"<7>",
+    "content":""
+}]

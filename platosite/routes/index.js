@@ -2,7 +2,7 @@ var fs = require('fs');
 var async = require('async');
 var _ = require('underscore');
 var _s = require('underscore.string');
-
+var ObjectId =  require('mongolian').ObjectId();
 var request = require('request');
 var spawn = require('child_process').spawn;
 

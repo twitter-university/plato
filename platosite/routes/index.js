@@ -32,7 +32,7 @@ exports.index = function(req, res){
 exports.project = function(req, res){
   console.log('hehhe');
   projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
-    fs.readFile('./projects/' + req.params.pid + proj.folder + '/cd-files.json', 'utf-8', function(err, file){
+    fs.readFile('./projects/' + req.params.pid +'/'+ proj.folder + '/cd-files.json', 'utf-8', function(err, file){
       if(!err && file){
         file = JSON.parse(file);
         console.log('filed');

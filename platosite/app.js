@@ -43,8 +43,8 @@ app.get('*', function(req, res, next){
   next();
 });
 app.get('/', routes.index);
-app.get('/project/:pid', routes.project);
 app.get('/project/:pid/*', routes.projectfile);
+app.get('/project/:pid', routes.project);
 app.get('/script/:pid/*', routes.script);
 
 app.get('/tags', routes.tags);

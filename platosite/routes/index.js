@@ -122,7 +122,7 @@ function itemslist(files, project, callback){
           str += '<li><a href="http://coursedex.com/project/'+project+file.path+'">'+file.name+'</a></li>';
         }
       });
-      console.log(str);
+     // console.log(str);
       callback(str);
     }else{
       return str;
@@ -189,7 +189,7 @@ exports.script = function(req, res){
       });
     }
     ],function(err, results){
-     console.log(req.params);
+     console.log('script ',req.params);
      res.json(parseFile(results[0], results[1]));
    });
 };

@@ -157,11 +157,9 @@ function parseFile(file, meta){
 
   _.each(meta, function(item){
    _.each(arr, function(arrItem){
+    console.log('arritem', arrItem.start);
      var testMarker = '<'+arrItem.start+'>';
      if(testMarker === item.marker){
-       if(item.title){
-         arrItem.title = item.title;
-       }
        if(item.content){
          arrItem.content = item.content;
        }
@@ -188,7 +186,7 @@ exports.script = function(req, res){
       });
     }
     ],function(err, results){
-     console.log('script ',req.params);
+     console.log('script ',req.params, results);
      res.json(parseFile(results[0], results[1]));
    });
 };

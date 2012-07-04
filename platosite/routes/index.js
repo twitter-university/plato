@@ -31,7 +31,6 @@ exports.index = function(req, res){
 };
 
 exports.project = function(req, res){
-  console.log('hehhe');
   projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
  async.parallel([
     function(callback){
@@ -65,7 +64,7 @@ exports.project = function(req, res){
 
 exports.projectfile = function(req, res){
   console.log('projectfile');
-  console.log(req.params);
+  console.log('projectfile',req.params);
 
     projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
   async.parallel([
@@ -169,7 +168,7 @@ function parseFile(file, meta){
      }
    });
  });
-  console.log(arr);
+  console.log('parseFile',arr);
   return arr;
 }
 

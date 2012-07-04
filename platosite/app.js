@@ -46,10 +46,7 @@ app.all('/*', function(req, res, next) {
 });
 
 // Routes
-app.get('*', function(req, res, next){
-  console.log(req.url);
-  next();
-});
+
 app.get('/', routes.index);
 app.get('/project/:pid/', routes.project);
 app.get('/project/:pid', routes.project);

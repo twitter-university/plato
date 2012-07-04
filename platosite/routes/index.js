@@ -47,7 +47,7 @@ exports.project = function(req, res){
     ],function(err, results){
       if(results[1]){
         itemslist(results[1], req.params.pid, function(obj){
-          res.render('projectfile', {
+          res.render('project', {
             title:'Coursedex',
             meta: results[0],
             project: req.params.pid,

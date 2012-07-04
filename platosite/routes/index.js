@@ -35,9 +35,6 @@ exports.project = function(req, res){
  async.parallel([
     function(callback){
       fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/project.meta', 'utf-8', function(err, file){
-        if(!err && file){
-          file = JSON.parse(file);
-        }
         callback(null, file);
       });
     },

@@ -44,6 +44,7 @@ app.get('*', function(req, res, next){
 });
 app.get('/', routes.index);
 app.get('/project/:pid/', routes.project);
+app.get('/project/:pid', routes.project);
 
 app.get('/project/:pid/*', routes.projectfile);
 app.get('/script/:pid/*', routes.script);

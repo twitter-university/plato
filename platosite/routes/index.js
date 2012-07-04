@@ -5,6 +5,7 @@ var _s = require('underscore.string');
 var ObjectId =  require('mongolian').ObjectId;
 var request = require('request');
 var spawn = require('child_process').spawn;
+var md = require("node-markdown").Markdown;
 
 
 var Mongolian = require("mongolian");
@@ -35,7 +36,8 @@ exports.project = function(req, res){
  async.parallel([
     function(callback){
       fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/project.meta', 'utf-8', function(err, file){
-        callback(null, file);
+        var html = md(file);
+        callback(null, html);
       });
     },
     function(callback){

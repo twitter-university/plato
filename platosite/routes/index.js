@@ -171,14 +171,15 @@ function parseFile(file, meta){
 }
 
 exports.script = function(req, res){
+      projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
   async.parallel([
     function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+req.params[0], function(err, file){
+      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0], function(err, file){
         callback(null,file);
       });
     },
     function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
+      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
         if(!err && file){
           file = JSON.parse(file);
         }
@@ -189,6 +190,7 @@ exports.script = function(req, res){
      console.log('script ',req.params, results);
      res.json(parseFile(results[0], results[1]));
    });
+});
 };
 
 exports.tags = function(req, res){

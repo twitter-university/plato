@@ -32,17 +32,33 @@ exports.index = function(req, res){
 exports.project = function(req, res){
   console.log('hehhe');
   projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
-    fs.readFile('./projects/' + req.params.pid +'/'+ proj.folder + '/cd-files.json', 'utf-8', function(err, file){
-      if(!err && file){
+ async.parallel([
+    function(callback){
+      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/project.meta', 'utf-8', function(err, file){
+        if(!err && file){
+          file = JSON.parse(file);
+        }
+        callback(null, file);
+      });
+    },
+    function(callback){
+      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
         file = JSON.parse(file);
-        console.log('filed');
-        res.render('project', {
-          title: 'Coursedex',
-          files: file,
-          project: req.params.pid
+        callback(null, file);
+      });
+    }
+    ],function(err, results){
+      if(results[1]){
+        itemslist(results[1], req.params.pid, function(obj){
+          res.render('projectfile', {
+            title:'Coursedex',
+            meta: results[0],
+            project: req.params.pid,
+            filesnav: obj
+          });
         });
       }else{
-        res.json({err:'no such project OR project is missing cd-files.json'});
+        res.json({err:'no navigation for project'});
       }
     });
   });
@@ -60,7 +76,7 @@ exports.projectfile = function(req, res){
       });
     },
     function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+'/'+ proj.folder +req.params[0]+'.meta', 'utf-8', function(err, file){
+      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
         if(!err && file){
           file = JSON.parse(file);
         }

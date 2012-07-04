@@ -37,6 +37,14 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
+app.all('/*', function(req, res, next) {
+    //console.log('CORS', req.headers);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Request-Method", "GET,POST");
+    next();
+});
+
 // Routes
 app.get('*', function(req, res, next){
   console.log(req.url);

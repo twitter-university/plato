@@ -196,10 +196,10 @@ exports.script = function(req, res){
 exports.tags = function(req, res){
   tags.find({}).toArray(function(err, arr){
     console.log('tags', err, arr);
-   res.render('tags', {
-    title: 'Tags',
-    tags:arr });
- });
+    res.render('tags', {
+      title: 'Tags',
+      tags:arr });
+  });
 };
 exports.tag = function(req, res){
  res.render('tag/'+req.params.tag, { title: req.params.tag });

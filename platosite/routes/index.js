@@ -195,6 +195,7 @@ exports.script = function(req, res){
 
 exports.tags = function(req, res){
   tags.find({}).toArray(function(err, arr){
+    console.log('tags', err, arr);
    res.render('tags', {
     title: 'Tags',
     tags:arr });

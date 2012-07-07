@@ -2,6 +2,6 @@
   .row-fluid
     .span8
       each tag in tags
-        a(href='/tags/#{{this.slug}}')
-          div.well.tag(data-info='#{{this.md}}')
-            h3 #{{this.name}}
+        a(href='/tags/#{{tag.slug}}')
+          .well.tag(data-info='#{{tag.md}}')
+            h3 #{{tag.name}}

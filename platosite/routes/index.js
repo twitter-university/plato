@@ -32,7 +32,7 @@ exports.index = function(req, res){
 
 exports.project = function(req, res){
   projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
- async.parallel([
+   async.parallel([
     function(callback){
       fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/project.meta', 'utf-8', function(err, file){
         var html = md(file);
@@ -59,51 +59,51 @@ exports.project = function(req, res){
         res.json({err:'no navigation for project'});
       }
     });
-  });
+ });
 };
 
 exports.projectfile = function(req, res){
   console.log('projectfile');
   console.log('projectfile',req.params);
 
-    projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
-  async.parallel([
-    function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0], function(err, file){
-        callback(null,file);
-      });
-    },
-    function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
-        if(!err && file){
-          file = JSON.parse(file);
-        }
-        callback(null, file);
-      });
-    },
-    function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
-        file = JSON.parse(file);
-        callback(null, file);
-      });
-    }
-    ],function(err, results){
-      if(results[2]){
-        itemslist(results[2], req.params.pid, function(obj){
-          res.render('projectfile', {
-            title:'Coursedex',
-            file: results[0],
-            meta: results[1],
-            nav: results[2],
-            project: req.params.pid,
-            filesnav: obj,
-            content: parseFile(results[0], results[1])
-          });
+  projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
+    async.parallel([
+      function(callback){
+        fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0], function(err, file){
+          callback(null,file);
         });
-      }else{
-        res.json({err:'no navigation for project'});
+      },
+      function(callback){
+        fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
+          if(!err && file){
+            file = JSON.parse(file);
+          }
+          callback(null, file);
+        });
+      },
+      function(callback){
+        fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
+          file = JSON.parse(file);
+          callback(null, file);
+        });
       }
-    });
+      ],function(err, results){
+        if(results[2]){
+          itemslist(results[2], req.params.pid, function(obj){
+            res.render('projectfile', {
+              title:'Coursedex',
+              file: results[0],
+              meta: results[1],
+              nav: results[2],
+              project: req.params.pid,
+              filesnav: obj,
+              content: parseFile(results[0], results[1])
+            });
+          });
+        }else{
+          res.json({err:'no navigation for project'});
+        }
+      });
 });
 };
 
@@ -122,12 +122,12 @@ function itemslist(files, project, callback){
         }
       });
      // console.log(str);
-      callback(str);
-    }else{
-      return str;
-    }
+     callback(str);
+   }else{
+    return str;
   }
-  listIt(files, callback);
+}
+listIt(files, callback);
 }
 function parseFile(file, meta){
   var arr = [];
@@ -157,44 +157,48 @@ function parseFile(file, meta){
 
   _.each(meta, function(item){
    _.each(arr, function(arrItem){
-    console.log('arritem', arrItem.start);
-     var testMarker = '<'+arrItem.start+'>';
-     if(testMarker === item.marker){
-       if(item.content){
-         arrItem.content = item.content;
-       }
+   // console.log('arritem', arrItem.start);
+   var testMarker = '<'+arrItem.start+'>';
+   if(testMarker === item.marker){
+     if(item.content){
+       arrItem.content = item.content;
      }
-   });
+   }
  });
-  console.log('parseFile',arr);
-  return arr;
+ });
+ // console.log('parseFile',arr);
+ return arr;
 }
 
 exports.script = function(req, res){
-      projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
-  async.parallel([
-    function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0], function(err, file){
-        callback(null,file);
-      });
-    },
-    function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
-        if(!err && file){
-          file = JSON.parse(file);
-        }
-        callback(null, file);
-      });
-    }
-    ],function(err, results){
-     console.log('script ',req.params, results);
+  projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
+    async.parallel([
+      function(callback){
+        fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0], function(err, file){
+          callback(null,file);
+        });
+      },
+      function(callback){
+        fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
+          if(!err && file){
+            file = JSON.parse(file);
+          }
+          callback(null, file);
+        });
+      }
+      ],function(err, results){
+     //console.log('script ',req.params, results);
      res.json(parseFile(results[0], results[1]));
    });
-});
+  });
 };
 
 exports.tags = function(req, res){
- res.render('tags', { title: 'Tags' });
+  tags.find({}).toArray(function(arr){
+   res.render('tags', {
+    title: 'Tags',
+    tags:arr });
+ });
 };
 exports.tag = function(req, res){
  res.render('tag/'+req.params.tag, { title: req.params.tag });

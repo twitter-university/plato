@@ -1,1 +1,7 @@
-h1 hello
+.container-fluid
+  .row-fluid
+    .span8
+      each tag in tags
+        a(href='/tags/#{tag.slug}')
+          .well.tag(data-info='#{tag.md}')
+            h3 #{tag.name}

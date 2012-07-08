@@ -194,7 +194,11 @@ exports.script = function(req, res){
 };
 
 exports.tags = function(req, res){
+  var name;
   tags.find({}).toArray(function(err, arr){
+    if(req.session && req.session.auth && req.session.auth.user){
+      name = req.session.auth.user.name;
+    }
     console.log('tags', err, arr);
     res.render('tags', {
       title: 'Tags',

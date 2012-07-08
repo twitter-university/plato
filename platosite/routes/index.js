@@ -198,7 +198,9 @@ exports.tags = function(req, res){
     console.log('tags', err, arr);
     res.render('tags', {
       title: 'Tags',
-      tags: arr });
+      tags: arr,
+      name:name
+    });
   });
 };
 exports.tag = function(req, res){

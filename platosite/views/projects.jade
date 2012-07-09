@@ -1,0 +1,27 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      a.brand Plato
+      ul.nav
+        li
+          a(href='/') Home
+        li.active
+          a(href='/tags') Tags
+        li
+          a(href='/projects') Projects
+        if name
+          li
+            a.nav.pullRight(href='#') #{name}
+          li
+            a(href='/new/project') New Project
+          li
+            a(href='/new/tag') New Tag
+        else
+          li
+            a.nav.pullRight(href='/login') Login with Facebook
+.container-fluid
+  .row-fluid
+    each project in projects
+      a(href='/project/#{project._id}') #{project.name}
+        if project.desc
+          pre #{project.desc}

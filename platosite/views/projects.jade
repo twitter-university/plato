@@ -22,6 +22,7 @@
 .container-fluid
   .row-fluid
     each project in projects
-      a(href='/project/#{project._id}') #{project.name}
-        if project.desc
-          pre #{project.desc}
+      a(href='/project/#{project._id}')
+        h4 #{project.name}
+          if project.desc
+            pre #{project.desc}

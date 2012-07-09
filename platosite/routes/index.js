@@ -211,7 +211,12 @@ exports.tag = function(req, res){
  res.render('tag/'+req.params.tag, { title: req.params.tag });
 };
 exports.projects = function(req, res){
- res.render('projects', { title: 'Projects' });
+  projects.find({}).toArray(function(err, arr){
+     res.render('projects', {
+      title: 'Projects',
+      projects: arr
+    });
+  });
 };
  /*exports.project = function(req, res){
    res.render('project/'+req.params.project, { title: req.params.project });

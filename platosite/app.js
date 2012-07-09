@@ -47,7 +47,9 @@ app.all('/*', function(req, res, next) {
 
 // Routes
 
-app.get('/', routes.index);
+app.get('/', function(req,res){
+  res.redirect('/projects');
+});
 app.get('/project/:pid/', routes.project);
 app.get('/project/:pid', routes.project);
 

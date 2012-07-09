@@ -3,7 +3,7 @@
     .container
       a.brand Plato
       ul.nav
-        li.active
+        li
           a(href='/') Home
         li
           a(href='/tags') Tags
@@ -12,7 +12,7 @@
         if name
           li
             a.nav.pullRight(href='#') #{name}
-          li
+          li.active
             a(href='/new/project') New Project
           li
             a(href='/new/tag') New Tag

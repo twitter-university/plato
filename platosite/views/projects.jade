@@ -22,7 +22,7 @@
 .container-fluid
   .row-fluid
     each project in projects
-      a(href='/project/#{project._id}')
+      a(href='/project/#{project._id}').span4
         h4 #{project.name}
           if project.desc
             pre #{project.desc}

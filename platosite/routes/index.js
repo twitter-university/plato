@@ -26,8 +26,8 @@ exports.index = function(req, res){
       title:'Coursedex',
       projects:arr,
       name:name
-    });
-  });
+      });
+});
 };
 
 exports.project = function(req, res){
@@ -37,29 +37,29 @@ exports.project = function(req, res){
       fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/project.meta', 'utf-8', function(err, file){
         var html = md(file);
         callback(null, html);
-      });
-    },
-    function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
-        file = JSON.parse(file);
-        callback(null, file);
-      });
-    }
-    ],function(err, results){
-      if(results[1]){
-        itemslist(results[1], req.params.pid, function(obj){
-          res.render('project', {
-            title:'Coursedex',
-            meta: results[0],
-            project: req.params.pid,
-            filesnav: obj
-          });
         });
-      }else{
-        res.json({err:'no navigation for project'});
-      }
+},
+function(callback){
+  fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
+    file = JSON.parse(file);
+    callback(null, file);
     });
- });
+}
+],function(err, results){
+  if(results[1]){
+    itemslist(results[1], req.params.pid, function(obj){
+      res.render('project', {
+        title:'Coursedex',
+        meta: results[0],
+        project: req.params.pid,
+        filesnav: obj
+        });
+});
+}else{
+  res.json({err:'no navigation for project'});
+}
+});
+});
 };
 
 exports.projectfile = function(req, res){
@@ -71,39 +71,39 @@ exports.projectfile = function(req, res){
       function(callback){
         fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0], function(err, file){
           callback(null,file);
-        });
-      },
-      function(callback){
-        fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
-          if(!err && file){
-            file = JSON.parse(file);
-          }
-          callback(null, file);
-        });
-      },
-      function(callback){
-        fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
-          file = JSON.parse(file);
-          callback(null, file);
-        });
-      }
-      ],function(err, results){
-        if(results[2]){
-          itemslist(results[2], req.params.pid, function(obj){
-            res.render('projectfile', {
-              title:'Coursedex',
-              file: results[0],
-              meta: results[1],
-              nav: results[2],
-              project: req.params.pid,
-              filesnav: obj,
-              content: parseFile(results[0], results[1])
-            });
           });
-        }else{
-          res.json({err:'no navigation for project'});
-        }
-      });
+},
+function(callback){
+  fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
+    if(!err && file){
+      file = JSON.parse(file);
+    }
+    callback(null, file);
+    });
+},
+function(callback){
+  fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
+    file = JSON.parse(file);
+    callback(null, file);
+    });
+}
+],function(err, results){
+  if(results[2]){
+    itemslist(results[2], req.params.pid, function(obj){
+      res.render('projectfile', {
+        title:'Coursedex',
+        file: results[0],
+        meta: results[1],
+        nav: results[2],
+        project: req.params.pid,
+        filesnav: obj,
+        content: parseFile(results[0], results[1])
+        });
+});
+}else{
+  res.json({err:'no navigation for project'});
+}
+});
 });
 };
 
@@ -116,16 +116,16 @@ function itemslist(files, project, callback){
           str+= '<li><a href="#">'+file.name+'</a><ul>';
           listIt(file.items, function(){
             str += '</ul></li>';
-          });
-        }else{
-          str += '<li><a href="http://coursedex.com/project/'+project+file.path+'">'+file.name+'</a></li>';
-        }
-      });
-     // console.log(str);
-     callback(str);
-   }else{
-    return str;
-  }
+            });
+}else{
+  str += '<li><a href="http://coursedex.com/project/'+project+file.path+'">'+file.name+'</a></li>';
+}
+});
+// console.log(str);
+callback(str);
+}else{
+  return str;
+}
 }
 listIt(files, callback);
 }
@@ -138,36 +138,36 @@ function parseFile(file, meta){
     if(_s.include(item, '//')){
       var n = item.match(/\B<[0-9,+]+>$/g);
       if(_.isNull(n)){
-      }else{
-        var o = _s.trim(n, '<');
-        o = _s.trim(o, '>');
-        o = o.split('+');
-        var obj = {
-          marker: n[0],
-          start:o[0],
-          line: i
-        };
-        if(o.length > 1){
-          obj.end = o[1];
+        }else{
+          var o = _s.trim(n, '<');
+          o = _s.trim(o, '>');
+          o = o.split('+');
+          var obj = {
+            marker: n[0],
+            start:o[0],
+            line: i
+          };
+          if(o.length > 1){
+            obj.end = o[1];
+          }
+          arr.push(obj);
         }
-        arr.push(obj);
       }
-    }
-  });
+      });
 
   _.each(meta, function(item){
    _.each(arr, function(arrItem){
-   // console.log('arritem', arrItem.start);
-   var testMarker = '<'+arrItem.start+'>';
-   if(testMarker === item.marker){
-     if(item.content){
-       arrItem.content = item.content;
+     // console.log('arritem', arrItem.start);
+     var testMarker = '<'+arrItem.start+'>';
+     if(testMarker === item.marker){
+       if(item.content){
+         arrItem.content = item.content;
+       }
      }
-   }
- });
- });
- // console.log('parseFile',arr);
- return arr;
+     });
+});
+// console.log('parseFile',arr);
+return arr;
 }
 
 exports.script = function(req, res){
@@ -176,21 +176,21 @@ exports.script = function(req, res){
       function(callback){
         fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0], function(err, file){
           callback(null,file);
-        });
-      },
-      function(callback){
-        fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
-          if(!err && file){
-            file = JSON.parse(file);
-          }
-          callback(null, file);
-        });
-      }
-      ],function(err, results){
-     //console.log('script ',req.params, results);
-     res.json(parseFile(results[0], results[1]));
-   });
-  });
+          });
+},
+function(callback){
+  fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/'+req.params[0]+'.meta', 'utf-8', function(err, file){
+    if(!err && file){
+      file = JSON.parse(file);
+    }
+    callback(null, file);
+    });
+}
+],function(err, results){
+ //console.log('script ',req.params, results);
+ res.json(parseFile(results[0], results[1]));
+ });
+});
 };
 
 exports.tags = function(req, res){
@@ -204,25 +204,28 @@ exports.tags = function(req, res){
       title: 'Tags',
       tags: arr,
       name:name
-    });
-  });
+      });
+});
 };
 exports.tag = function(req, res){
  res.render('tag/'+req.params.tag, { title: req.params.tag });
 };
 exports.projects = function(req, res){
+  var name;
   projects.find({}).toArray(function(err, arr){
-     res.render('projects', {
-      title: 'Projects',
-      projects: arr
+
+   res.render('projects', {
+    title: 'Projects',
+    projects: arr,
+    name:name
     });
-  });
+});
 };
- /*exports.project = function(req, res){
-   res.render('project/'+req.params.project, { title: req.params.project });
- };
- exports.projectfile = function(req, res){
-   res.render('project/'+req.params.project + '/'+ req.params[0] + '.jade', { title: req.params.project });
+/*exports.project = function(req, res){
+ res.render('project/'+req.params.project, { title: req.params.project });
+};
+exports.projectfile = function(req, res){
+ res.render('project/'+req.params.project + '/'+ req.params[0] + '.jade', { title: req.params.project });
  };*/
 
 
@@ -236,30 +239,30 @@ exports.projects = function(req, res){
       console.log(req.session);
       res.redirect('/');
       //res.render('loggedIn',{title:'Coursedex'});
-    } else {
-      res.end('notLoggedIn');
-      //res.render('notLoggedIn',{title:'Coursedex'});
-    }
-  });
+      } else {
+        res.end('notLoggedIn');
+        //res.render('notLoggedIn',{title:'Coursedex'});
+      }
+      });
 };
 
 exports.isLoggedIn = function(req, res, next){
   if(req.session.auth && req.session.access_token && req.session.auth.user.id){
     next();
-  }else{
-    res.redirect('/');
-  }
-};
+    }else{
+      res.redirect('/');
+    }
+  };
 
-exports.newProject = function(req, res){
-  var name;
-  if(req.session && req.session.auth && req.session.auth.user){
-    name = req.session.auth.user.name;
-  }
-  res.render('newProject', {
-    title:'Coursedex',
-    name:name
-  });
+  exports.newProject = function(req, res){
+    var name;
+    if(req.session && req.session.auth && req.session.auth.user){
+      name = req.session.auth.user.name;
+    }
+    res.render('newProject', {
+      title:'Coursedex',
+      name:name
+      });
 };
 
 exports.createNewProject = function(req, res){
@@ -287,30 +290,30 @@ exports.createNewProject = function(req, res){
             var unzip    = spawn('unzip', ['./projects/'+proj._id+'/git.zip', '-d', './projects/'+proj._id]);
             unzip.stderr.on('data', function(err){
               console.log(err.toString());
-            });
-            unzip.on('exit', function (code) {
-              console.log('unzipped Project');
-              if(code === 0){
-                console.log('unzip successful');
-                fs.unlink('./projects/'+proj._id+'/git.zip', function(exception){
-                  console.log('unlinked .zip');
-                  fs.readdir('./projects/'+proj._id, function(err, files){
-                    console.log('find Project Folder name');
-                    if(!err && files){
-                      console.log('files exist');
-                      console.log(files);
-                      proj.folder = files[0];
-                      projects.update({_id: proj._id}, {$set:proj}, false, false);
-                      res.end('success!');
-                    }
-                  });
-                });
-              }else{
-                console.log(code);
-                res.end('Error');
-              }
-            });
-          });
+              });
+unzip.on('exit', function (code) {
+  console.log('unzipped Project');
+  if(code === 0){
+    console.log('unzip successful');
+    fs.unlink('./projects/'+proj._id+'/git.zip', function(exception){
+      console.log('unlinked .zip');
+      fs.readdir('./projects/'+proj._id, function(err, files){
+        console.log('find Project Folder name');
+        if(!err && files){
+          console.log('files exist');
+          console.log(files);
+          proj.folder = files[0];
+          projects.update({_id: proj._id}, {$set:proj}, false, false);
+          res.end('success!');
+        }
+        });
+});
+}else{
+  console.log(code);
+  res.end('Error');
+}
+});
+});
 });
 });
 });

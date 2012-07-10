@@ -209,31 +209,24 @@ exports.tags = function(req, res){
 };
 exports.tag = function(req, res){
   var name;
-  async.parallel([
-    function(callback){
-      tags.findOne({slug: req.params.tag}, function(err, obj){
-        callback(obj);
+  tags.findOne({slug: req.params.tag}, function(err, tag){
+    projects.find({tags:req.params.tag}).toArray(function(err,projects){
+
+      if(req.session && req.session.auth && req.session.auth.user){
+        name = req.session.auth.user.name;
+      }
+      if(!projects[0]){
+        projects = undefined;
+      }
+      res.render('tag',{
+        title:name,
+        tag:tag,
+        name:name,
+        projects: projects
       });
-    },function(callback){
-      projects.find({tags:req.params.tag}).toArray(function(err,arr){
-        console.log('proj: ', err, arr);
-        callback(arr);
-      });
-    }], function(tag, projects){
-      console.log('tag: ', tag, projects);
-    if(req.session && req.session.auth && req.session.auth.user){
-      name = req.session.auth.user.name;
-    }
-    if(!projects[0]){
-      projects = undefined;
-    }
-     res.render('tag',{
-      title:name,
-      tag:tag,
-      name:name,
-      projects: projects
     });
-   });
+  });
+  
 };
 exports.projects = function(req, res){
   var name;

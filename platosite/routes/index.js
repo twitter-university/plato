@@ -381,7 +381,7 @@ exports.updateProject = function(req, res){
       console.log(err.toString());
     });
     rm.on('exit', function(code){
-      request(project.uri).pipe(fs.createWriteStream('./projects/'+proj._id+'/git.zip')).on('close', function(code){
+      request(proj.uri).pipe(fs.createWriteStream('./projects/'+proj._id+'/git.zip')).on('close', function(code){
         console.log('retrieved Project');
         var unzip    = spawn('unzip', ['./projects/'+proj._id+'/git.zip', '-d', './projects/'+proj._id]);
         unzip.stderr.on('data', function(err){

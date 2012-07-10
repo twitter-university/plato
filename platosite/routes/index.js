@@ -216,6 +216,7 @@ exports.tag = function(req, res){
       });
     },function(callback){
       projects.find({tags:req.params.tag}).toArray(function(err,arr){
+        console.log('proj: ', err, arr);
         callback(arr);
       });
     }], function(tag, projects){

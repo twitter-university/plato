@@ -6,7 +6,7 @@ var ObjectId =  require('mongolian').ObjectId;
 var request = require('request');
 var spawn = require('child_process').spawn;
 var md = require("node-markdown").Markdown;
-
+var rimraf = require('rimraf');
 
 var Mongolian = require("mongolian");
 var db = new Mongolian('mongodb://coursedexapp:plato2project@ds033887.mongolab.com:33887/coursedex');
@@ -376,11 +376,8 @@ exports.updateProject = function(req, res){
   console.log('updating: ', req.params.pid);
   projects.findOne({_id:new ObjectId(req.params.pid)}, function(err, proj){
     console.log('find');
-    var rm = spawn('rm', ['-rf', './projects/'+proj._id+'/'+proj.folder+'/*']);
-    rm.stderr.on('data', function(err){
-      console.log(err.toString());
-    });
-    rm.on('exit', function(code){
+    rimraf('./projects/'+proj._id+'/'+proj.folder+'/*',function(){
+    
       request(proj.uri).pipe(fs.createWriteStream('./projects/'+proj._id+'/git.zip')).on('close', function(code){
         console.log('retrieved Project');
         var unzip    = spawn('unzip', ['./projects/'+proj._id+'/git.zip', '-d', './projects/'+proj._id]);

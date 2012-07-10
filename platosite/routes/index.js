@@ -231,7 +231,9 @@ exports.tag = function(req, res){
 exports.projects = function(req, res){
   var name;
   projects.find({}).toArray(function(err, arr){
-
+  if(req.session && req.session.auth && req.session.auth.user){
+    name = req.session.auth.user.name;
+  }
    res.render('projects', {
     title: 'Projects',
     projects: arr,

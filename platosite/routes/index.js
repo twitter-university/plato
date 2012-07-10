@@ -31,6 +31,7 @@ exports.index = function(req, res){
 };
 
 exports.project = function(req, res){
+  var name;
   projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
     console.log('proj ', proj);
    async.parallel([
@@ -52,12 +53,16 @@ exports.project = function(req, res){
     }
     ],function(err, results){
       if(results[1]){
+          if(req.session && req.session.auth && req.session.auth.user){
+    name = req.session.auth.user.name;
+  }
         itemslist(results[1], req.params.pid, function(obj){
           res.render('project', {
             title:'Coursedex',
             meta: results[0],
             project: req.params.pid,
-            filesnav: obj
+            filesnav: obj,
+            name:name
           });
         });
       }else{
@@ -70,7 +75,7 @@ exports.project = function(req, res){
 exports.projectfile = function(req, res){
   console.log('projectfile');
   console.log('projectfile',req.params);
-
+var name;
   projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
     async.parallel([
       function(callback){
@@ -94,6 +99,9 @@ exports.projectfile = function(req, res){
       }
       ],function(err, results){
         if(results[2]){
+            if(req.session && req.session.auth && req.session.auth.user){
+    name = req.session.auth.user.name;
+  }
           itemslist(results[2], req.params.pid, function(obj){
             res.render('projectfile', {
               title:'Coursedex',
@@ -102,7 +110,8 @@ exports.projectfile = function(req, res){
               nav: results[2],
               project: req.params.pid,
               filesnav: obj,
-              content: parseFile(results[0], results[1])
+              content: parseFile(results[0], results[1]),
+              name:name
             });
           });
         }else{

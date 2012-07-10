@@ -34,48 +34,48 @@ exports.project = function(req, res){
   var name;
   projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
     console.log('proj ', proj);
-   async.parallel([
-    function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/project.meta', 'utf-8', function(err, file){
-        if(file){
-          callback(null, md(file));
-        }
-        else{
-          callback(null, 'Please create a project.meta file in the root of the project');
-        }
-      });
-    },
-    function(callback){
-      fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
-        file = JSON.parse(file);
-        callback(null, file);
-      });
-    }
-    ],function(err, results){
-      if(results[1]){
-          if(req.session && req.session.auth && req.session.auth.user){
-    name = req.session.auth.user.name;
-  }
-        itemslist(results[1], req.params.pid, function(obj){
-          res.render('project', {
-            title:'Coursedex',
-            meta: results[0],
-            project: req.params.pid,
-            filesnav: obj,
-            name:name
-          });
+    async.parallel([
+      function(callback){
+        fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/project.meta', 'utf-8', function(err, file){
+          if(file){
+            callback(null, md(file));
+          }
+          else{
+            callback(null, 'Please create a project.meta file in the root of the project');
+          }
         });
-      }else{
-        res.end('cd-files.json must be present in the root of the project.');
+      },
+      function(callback){
+        fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
+          file = JSON.parse(file);
+          callback(null, file);
+        });
       }
-    });
- });
+      ],function(err, results){
+        if(results[1]){
+          if(req.session && req.session.auth && req.session.auth.user){
+            name = req.session.auth.user.name;
+          }
+          itemslist(results[1], req.params.pid, function(obj){
+            res.render('project', {
+              title:'Coursedex',
+              meta: results[0],
+              project: req.params.pid,
+              filesnav: obj,
+              name:name
+            });
+          });
+        }else{
+          res.end('cd-files.json must be present in the root of the project.');
+        }
+      });
+});
 };
 
 exports.projectfile = function(req, res){
   console.log('projectfile');
   console.log('projectfile',req.params);
-var name;
+  var name;
   projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
     async.parallel([
       function(callback){
@@ -99,9 +99,9 @@ var name;
       }
       ],function(err, results){
         if(results[2]){
-            if(req.session && req.session.auth && req.session.auth.user){
-    name = req.session.auth.user.name;
-  }
+          if(req.session && req.session.auth && req.session.auth.user){
+            name = req.session.auth.user.name;
+          }
           itemslist(results[2], req.params.pid, function(obj){
             res.render('projectfile', {
               title:'Coursedex',
@@ -245,15 +245,15 @@ exports.tag = function(req, res){
 exports.projects = function(req, res){
   var name;
   projects.find({}).toArray(function(err, arr){
-  if(req.session && req.session.auth && req.session.auth.user){
-    name = req.session.auth.user.name;
-  }
-   res.render('projects', {
-    title: 'Projects',
-    projects: arr,
-    name:name
+    if(req.session && req.session.auth && req.session.auth.user){
+      name = req.session.auth.user.name;
+    }
+    res.render('projects', {
+      title: 'Projects',
+      projects: arr,
+      name:name
+    });
   });
- });
 };
 /*exports.project = function(req, res){
  res.render('project/'+req.params.project, { title: req.params.project });
@@ -370,4 +370,39 @@ exports.createNewProject = function(req, res){
 });
 });
 }
+};
+
+exports.updateProject = function(req, res){
+  projects.find({_id:new ObjectId(req.params.pid)}, function(err, project){
+    var rm = spawn('rm', ['rf', './projects/'+proj._id+'/*']);
+    rm.on('exit', function(code){
+      request(project.uri).pipe(fs.createWriteStream('./projects/'+proj._id+'/git.zip')).on('close', function(code){
+        console.log('retrieved Project');
+        var unzip    = spawn('unzip', ['./projects/'+proj._id+'/git.zip', '-d', './projects/'+proj._id]);
+        unzip.stderr.on('data', function(err){
+          console.log(err.toString());
+        });
+        unzip.on('exit', function (code) {
+          console.log('unzipped Project');
+          if(code === 0){
+            console.log('unzip successful');
+            fs.unlink('./projects/'+proj._id+'/git.zip', function(exception){
+              console.log('unlinked .zip');
+              fs.readdir('./projects/'+proj._id, function(err, files){
+                console.log('find Project Folder name');
+                if(!err && files){
+                  console.log('files exist');
+                  console.log(files);
+                  proj.folder = files[0];
+                  console.log(proj._id.toString());
+                  projects.update({_id: proj._id}, {$set:{folder:files[0]}}, false, false);
+                  res.end('success!');
+                }
+              });
+            });
+          }
+        });
+      });
+});
+});
 };

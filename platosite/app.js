@@ -66,6 +66,7 @@ app.get('/new/project', routes.isLoggedIn, routes.newProject);
 app.post('/new/project', routes.isLoggedIn, routes.createNewProject);
 app.get('/new/tag', routes.isLoggedIn, routes.newTag);
 app.post('/new/tag', routes.isLoggedIn, routes.createNewTag);
+app.get('/update/:pid', routes.updateProject);
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

@@ -209,7 +209,7 @@ exports.tags = function(req, res){
 };
 exports.tag = function(req, res){
   var name;
-  tags.findOne({tag: req.params.tag}, function(err, obj){
+  tags.findOne({slug: req.params.tag}, function(err, obj){
    if(req.session && req.session.auth && req.session.auth.user){
     name = req.session.auth.user.name;
   }

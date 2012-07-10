@@ -223,7 +223,7 @@ exports.tag = function(req, res){
       name = req.session.auth.user.name;
     }
     if(projects.length === 0){
-      projects = false;
+      projects = undefined;
     }
      res.render('tag',{
       title:name,

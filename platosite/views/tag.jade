@@ -21,6 +21,12 @@
             a.nav.pullRight(href='/login') Login with Facebook
 .container-fluid
   .row-fluid
-    .span8.well
+    .span12.well
       h2 #{tag.name}
       div #{tag.md}
+  .row-fluid
+    each project in projects
+      .span4
+      each project in projects
+        li
+          a(href='/project/#{project._id}') #{project.name}

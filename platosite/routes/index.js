@@ -224,7 +224,7 @@ exports.tag = function(req, res){
     if(req.session && req.session.auth && req.session.auth.user){
       name = req.session.auth.user.name;
     }
-    console.log(results);
+    console.log('res:', results);
      res.render('tag',{
       title:name,
       tag:results[0],

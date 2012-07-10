@@ -216,6 +216,7 @@ exports.tag = function(req, res){
       });
     },function(callback){
       projects.find({tags:req.params.tag}).toArray(function(err,arr){
+        console.log('tag: ', err, arr);
         callback(arr);
       });
     }], function(results){
@@ -224,7 +225,7 @@ exports.tag = function(req, res){
     }
      res.render('tag',{
       title:name,
-      tag:req.params.tag,
+      tag:results[0],
       name:name,
       projects: results[1]
     });

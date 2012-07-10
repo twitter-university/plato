@@ -22,8 +22,9 @@
 .container-fluid
   .row-fluid
     .span12.well
-      h2 #{tag.name}
-      div #{tag.md}
+      if tag
+        h2 #{tag.name}
+        div #{tag.md}
   .row-fluid
     if projects
       each project in projects

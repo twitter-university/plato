@@ -212,20 +212,16 @@ exports.tag = function(req, res){
   async.parallel([
     function(callback){
       tags.findOne({slug: req.params.tag}, function(err, obj){
-        console.log('tag-theTag: ', err, obj);
         callback(obj);
       });
     },function(callback){
       projects.find({tags:req.params.tag}).toArray(function(err,arr){
-        console.log('tag: ', err, arr);
         callback(arr);
       });
     }], function(tag, projects){
     if(req.session && req.session.auth && req.session.auth.user){
       name = req.session.auth.user.name;
     }
-    console.log('res:', results);
-    console.log('ress: ', projects);
      res.render('tag',{
       title:name,
       tag:tag,

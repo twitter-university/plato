@@ -220,12 +220,12 @@ exports.tag = function(req, res){
         console.log('tag: ', err, arr);
         callback(arr);
       });
-    }], function(results){
+    }], function(results, projects){
     if(req.session && req.session.auth && req.session.auth.user){
       name = req.session.auth.user.name;
     }
-    console.log('res:', results.name);
-    console.log('ress: ', results[1]);
+    console.log('res:', results);
+    console.log('ress: ', projects);
      res.render('tag',{
       title:name,
       tag:results[0],

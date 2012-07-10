@@ -32,6 +32,7 @@ exports.index = function(req, res){
 
 exports.project = function(req, res){
   projects.findOne({_id: new ObjectId(req.params.pid)}, function(err, proj){
+    console.log('proj ', proj);
    async.parallel([
     function(callback){
       fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/project.meta', 'utf-8', function(err, file){
@@ -45,9 +46,7 @@ exports.project = function(req, res){
     },
     function(callback){
       fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
-        console.log('filee ', err, file);
-        console.log(file[0]);
-        //file = JSON.parse(file);
+        file = JSON.parse(file);
         callback(null, file);
       });
     }

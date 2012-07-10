@@ -376,10 +376,10 @@ exports.updateProject = function(req, res){
   console.log('updating: ', req.params.pid);
   projects.find({_id:new ObjectId(req.params.pid)}, function(err, project){
     console.log('find');
-    var rm = spawn('rm', ['rf', './projects/'+proj._id+'/*']);
-                rm.stderr.on('data', function(err){
-              console.log(err.toString());
-            });
+    var rm = spawn('rm', ['-rf', './projects/'+proj._id+'/*']);
+    rm.stderr.on('data', function(err){
+      console.log(err.toString());
+    });
     rm.on('exit', function(code){
       request(project.uri).pipe(fs.createWriteStream('./projects/'+proj._id+'/git.zip')).on('close', function(code){
         console.log('retrieved Project');

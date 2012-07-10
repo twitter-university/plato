@@ -212,6 +212,7 @@ exports.tag = function(req, res){
   async.parallel([
     function(callback){
       tags.findOne({slug: req.params.tag}, function(err, obj){
+        console.log('tag-theTag: ', err, obj);
         callback(obj);
       });
     },function(callback){
@@ -223,6 +224,7 @@ exports.tag = function(req, res){
     if(req.session && req.session.auth && req.session.auth.user){
       name = req.session.auth.user.name;
     }
+    console.log(results);
      res.render('tag',{
       title:name,
       tag:results[0],

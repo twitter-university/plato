@@ -219,11 +219,14 @@ exports.tag = function(req, res){
         callback(arr);
       });
     }], function(results){
+    if(req.session && req.session.auth && req.session.auth.user){
+      name = req.session.auth.user.name;
+    }
      res.render('tag',{
-      title:results[0].obj.name,
-      tag:results[0].obj,
-      name:results[0].name,
-      projects: arr
+      title:results[0].name,
+      tag:req.params.tag,
+      name:name,
+      projects: results[1]
     });
    });
 };

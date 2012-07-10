@@ -27,6 +27,7 @@
   .row-fluid
     each project in projects
       .span4
-      each project in projects
-        li
-          a(href='/project/#{project._id}') #{project.name}
+      if projects
+        each project in projects
+          li
+            a(href='/project/#{project._id}') #{project.name}

@@ -22,6 +22,5 @@
 .container-fluid
   .row-fluid
     .span8
-      a(href='/tags/#{tag.slug}')
-        .well.tag(data-info='#{tag.md}')
-          h3 #{tag.name}
+      h2 #{tag.name}
+        .well.tag #{tag.md}

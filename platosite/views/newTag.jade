@@ -1,0 +1,31 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      a.brand Plato
+      ul.nav
+        li
+          a(href='/') Home
+        li
+          a(href='/tags') Tags
+        li
+          a(href='/projects') Projects
+        if name
+          li
+            a.nav.pullRight(href='#') #{name}
+          li.active
+            a(href='/new/project') New Project
+          li.active
+            a(href='/new/tag') New Tag
+        else
+          li
+            a.nav.pullRight(href='/login') Login with Facebook
+.container-fluid
+  .row-fluid
+    .span4 &nbsp
+    form(action='/new/tag', method='post').span4
+      label Tag Name *
+      input(type='text', name='name')
+      label Description
+      textarea(name='md')
+      label Submit
+      input(type='submit', value='submit')

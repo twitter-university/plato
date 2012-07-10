@@ -226,7 +226,7 @@ exports.tag = function(req, res){
       });
     });
   });
-  
+
 };
 exports.projects = function(req, res){
   var name;
@@ -284,7 +284,19 @@ exports.newProject = function(req, res){
     name:name
   });
 };
-
+exports.newTag = function(req, res){
+  var name;
+  if(req.session && req.session.auth && req.session.auth.user){
+    name = req.session.auth.user.name;
+  }
+  res.render('newTag', {
+    title:'Coursedex',
+    name:name
+  });
+};
+exports.createNewTag = function(req, res){
+  console.log(req.body);
+};
 exports.createNewProject = function(req, res){
   console.log(req.body, req.params);
   if(req.body.pname && req.body.uri){

@@ -257,7 +257,7 @@ exports.login = function(req, res){
   req.authenticate('facebook', function(error, authenticated) {
     if(authenticated ) {
       console.log(req.session);
-      res.redirect('/');
+      res.redirect('/projects');
       //res.render('loggedIn',{title:'Coursedex'});
     } else {
       res.end('notLoggedIn');

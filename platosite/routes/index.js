@@ -214,6 +214,7 @@ exports.tag = function(req, res){
     name = req.session.auth.user.name;
   }
   res.render('tag',{
+    title:obj.name,
     tag:obj,
     name:name
   });

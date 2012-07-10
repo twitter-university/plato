@@ -222,9 +222,7 @@ exports.tag = function(req, res){
     if(req.session && req.session.auth && req.session.auth.user){
       name = req.session.auth.user.name;
     }
-    if(projects.length === 0){
-      projects = undefined;
-    }
+    console.log('projects', projects);
      res.render('tag',{
       title:name,
       tag:tag,

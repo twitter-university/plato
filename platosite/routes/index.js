@@ -222,6 +222,9 @@ exports.tag = function(req, res){
     if(req.session && req.session.auth && req.session.auth.user){
       name = req.session.auth.user.name;
     }
+    if(projects.length === 0){
+      projects = false;
+    }
      res.render('tag',{
       title:name,
       tag:tag,
@@ -257,7 +260,7 @@ exports.login = function(req, res){
   req.authenticate('facebook', function(error, authenticated) {
     if(authenticated ) {
       console.log(req.session);
-      res.redirect('/projects');
+      res.redirect('/');
       //res.render('loggedIn',{title:'Coursedex'});
     } else {
       res.end('notLoggedIn');

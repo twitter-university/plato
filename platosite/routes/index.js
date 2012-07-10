@@ -295,7 +295,12 @@ exports.newTag = function(req, res){
   });
 };
 exports.createNewTag = function(req, res){
-  console.log(req.body);
+  tags.insert({
+    name:req.body.name,
+    md:req.body.md,
+    slug: _s.slugify(req.body.name)
+  });
+  res.end('success');
 };
 exports.createNewProject = function(req, res){
   console.log(req.body, req.params);

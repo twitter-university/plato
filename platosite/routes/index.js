@@ -345,7 +345,7 @@ exports.createNewProject = function(req, res){
                       console.log('files exist');
                       console.log(files);
                       proj.folder = files[0];
-                      console.log(proj._id);
+                      console.log(proj._id.toString());
                       projects.update({_id: proj._id}, {folder:files[0]}, false, false);
                       res.end('success!');
                     }

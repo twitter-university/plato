@@ -25,8 +25,8 @@
       h2 #{tag.name}
       div #{tag.md}
   .row-fluid
-    each project in projects
-      .span4
-        if projects
+    if projects
+      each project in projects
+        .span4
           li
             a(href='/project/#{project._id}') #{project.name}

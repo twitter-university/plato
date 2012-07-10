@@ -376,7 +376,7 @@ exports.updateProject = function(req, res){
   console.log('updating: ', req.params.pid);
   projects.findOne({_id:new ObjectId(req.params.pid)}, function(err, proj){
     console.log('find');
-    var rm = spawn('rm', ['-rf', './projects/'+proj._id+'/*']);
+    var rm = spawn('rm', ['-rf', './projects/'+proj._id+'/'+proj.folder+'/*']);
     rm.stderr.on('data', function(err){
       console.log(err.toString());
     });

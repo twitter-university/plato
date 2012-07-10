@@ -22,6 +22,8 @@
 .container-fliud.content
   .row-fluid
     .span12
+      h2 Projects
+    .span12
       each project in projects
         li
           a(href='/project/#{project._id}') #{project.name}

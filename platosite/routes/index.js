@@ -209,16 +209,23 @@ exports.tags = function(req, res){
 };
 exports.tag = function(req, res){
   var name;
-  tags.findOne({slug: req.params.tag}, function(err, obj){
-   if(req.session && req.session.auth && req.session.auth.user){
-    name = req.session.auth.user.name;
-  }
-  res.render('tag',{
-    title:obj.name,
-    tag:obj,
-    name:name
-  });
-});
+  async.parallel([
+    function(callback){
+      tags.findOne({slug: req.params.tag}, function(err, obj){
+        callback(obj);
+      });
+    },function(callback){
+      projects.find({tag:req.params.tag}).toArray(function(err,arr){
+        callback(arr);
+      });
+    }], function(results){
+     res.render('tag',{
+      title:results[0].obj.name,
+      tag:results[0].obj,
+      name:results[0].name,
+      projects: arr
+    });
+   });
 };
 exports.projects = function(req, res){
   var name;

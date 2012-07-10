@@ -35,8 +35,12 @@ exports.project = function(req, res){
    async.parallel([
     function(callback){
       fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/project.meta', 'utf-8', function(err, file){
-        var html = md(file);
-        callback(null, html);
+        if(file){
+          callback(null, md(file));
+        }
+        else{
+          callback(null, 'Please create a project.meta file in the root of the project');
+        }
       });
     },
     function(callback){
@@ -56,7 +60,7 @@ exports.project = function(req, res){
           });
         });
       }else{
-        res.json({err:'no navigation for project'});
+        res.end('cd-files.json must be present in the root of the project.');
       }
     });
  });

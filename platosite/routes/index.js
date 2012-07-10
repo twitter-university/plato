@@ -220,6 +220,7 @@ exports.tag = function(req, res){
         callback(arr);
       });
     }], function(tag, projects){
+      console.log('tag: ', tag, projects);
     if(req.session && req.session.auth && req.session.auth.user){
       name = req.session.auth.user.name;
     }

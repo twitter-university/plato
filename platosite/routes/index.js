@@ -223,7 +223,7 @@ exports.tag = function(req, res){
       name = req.session.auth.user.name;
     }
      res.render('tag',{
-      title:results[0].name,
+      title:name,
       tag:req.params.tag,
       name:name,
       projects: results[1]

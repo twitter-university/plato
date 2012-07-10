@@ -375,6 +375,7 @@ exports.createNewProject = function(req, res){
 exports.updateProject = function(req, res){
   console.log('updating');
   projects.find({_id:new ObjectId(req.params.pid)}, function(err, project){
+    console.log('find');
     var rm = spawn('rm', ['rf', './projects/'+proj._id+'/*']);
     rm.on('exit', function(code){
       request(project.uri).pipe(fs.createWriteStream('./projects/'+proj._id+'/git.zip')).on('close', function(code){

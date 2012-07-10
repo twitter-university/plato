@@ -373,6 +373,7 @@ exports.createNewProject = function(req, res){
 };
 
 exports.updateProject = function(req, res){
+  console.log('updating');
   projects.find({_id:new ObjectId(req.params.pid)}, function(err, project){
     var rm = spawn('rm', ['rf', './projects/'+proj._id+'/*']);
     rm.on('exit', function(code){

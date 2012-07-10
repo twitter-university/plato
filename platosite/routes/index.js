@@ -45,6 +45,7 @@ exports.project = function(req, res){
     },
     function(callback){
       fs.readFile('./projects/'+req.params.pid+'/'+ proj.folder +'/cd-files.json', 'utf-8', function(err, file){
+        console.log('filee ', err, file);
         console.log(file[0]);
         //file = JSON.parse(file);
         callback(null, file);

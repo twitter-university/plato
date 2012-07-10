@@ -220,7 +220,7 @@ exports.tag = function(req, res){
         console.log('tag: ', err, arr);
         callback(arr);
       });
-    }], function(results, projects){
+    }], function(tag, projects){
     if(req.session && req.session.auth && req.session.auth.user){
       name = req.session.auth.user.name;
     }
@@ -228,9 +228,9 @@ exports.tag = function(req, res){
     console.log('ress: ', projects);
      res.render('tag',{
       title:name,
-      tag:results[0],
+      tag:tag,
       name:name,
-      projects: results[1]
+      projects: projects
     });
    });
 };

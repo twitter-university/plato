@@ -24,25 +24,3 @@
     top:100px;
     left:65.74585634900001%;
 }
-@media (max-width: 480px) {
- body{
-    margin-top:0;
-}
-.span4.tag-info{
-    display:none;
-}
-}
-
-@media (max-width: 767px) { 
- body{
-    margin-top:0;
-}
-}
-
-@media (min-width: 768px) and (max-width: 979px) { 
- body{
-    margin-top:0;
-}
-}
-
-@media (min-width: 1200px) {  }

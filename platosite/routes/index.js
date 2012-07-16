@@ -376,7 +376,7 @@ exports.updateProject = function(req, res){
   console.log('updating: ', req.params.pid);
   projects.findOne({_id:new ObjectId(req.params.pid)}, function(err, proj){
     console.log('find');
-    rimraf('./projects/'+proj._id+'/'+proj.folder+'/*',function(){
+    rimraf('./projects/'+proj._id+'/'+proj.folder,function(){
     
       request(proj.uri).pipe(fs.createWriteStream('./projects/'+proj._id+'/git.zip')).on('close', function(code){
         console.log('retrieved Project');
